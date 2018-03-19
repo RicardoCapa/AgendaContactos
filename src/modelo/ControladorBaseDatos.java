@@ -69,7 +69,7 @@ public class ControladorBaseDatos {
             String query = "Select * from CONTACTOS where LOWER(apellido) LIKE LOWER('" + apellido + "%')";
             seleccionarPersonasPorApellido = conexion.prepareStatement(query);
             ResultSet resultado = seleccionarPersonasPorApellido.executeQuery();
-            if (resultado.next() == true) {
+            while (resultado.next()) {
                 Persona personaEncontrada = new Persona();
                 String id = resultado.getString("id");
                 String nb = resultado.getString("nombre");
@@ -83,9 +83,7 @@ public class ControladorBaseDatos {
                 personaEncontrada.setTelefono(tlf);
                 encontrado.add(personaEncontrada);
 
-            } else {
-                System.out.println("No existe");
-            }
+            } 
 
         } catch (SQLException ex) {
             System.out.println("Error al ejecutar la consulta" + ex);
